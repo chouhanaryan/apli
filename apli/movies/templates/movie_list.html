@@ -17,7 +17,9 @@
                             <br>
                             <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
                             {% if request.user.is_superuser %}
-                                <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                                <form action="{% url 'delete_movie' movie.pk %}">
+                                    <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                                </form>
                             {% endif %}
                             <br>
                       </div><!-- card content -->

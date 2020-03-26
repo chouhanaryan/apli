@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
 from .models import Movie
 from .forms import CommentForm, UpdateMovieForm, CreateMovieForm
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views import generic
+from django.views.generic.edit import DeleteView
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from bootstrap_modal_forms.generic import BSModalCreateView
-from django.urls import reverse_lazy
-from django.views import generic
 
 
 def movie_list(request):    
@@ -74,4 +76,10 @@ class CreateMovieView(BSModalCreateView):
     template_name = 'create_movie.html'
     form_class = CreateMovieForm
     success_message = 'Success: Movie was created!'
+    success_url = reverse_lazy('movie_list')
+
+
+@method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
+class DeleteMovieView(DeleteView):
+    model = Movie
     success_url = reverse_lazy('movie_list')
