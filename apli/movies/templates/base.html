@@ -24,17 +24,18 @@
                 <div class="col-sm-2">
                     {% block sidebar %}
                         <ul class="sidebar-nav">
-                            <li><a href="{% url 'movie_list' %}">Home</a></li>
-                            
-                            {% if request.user.is_superuser %}
-                                <button class="create-movie btn btn-primary" type="button" name="button">Create Movie</button>
-                            {% endif %}
-
-                            <br>
+                            <li><a href="{% url 'movie_list' %}">Home</a></li>                                                       
                             {% if request.user.is_authenticated %}
-                                <li>User: {{ request.user.username }}</li>
+                                <li>User: {{ request.user.username }}</li>                                
+                                <br>
+                                <li>
+                                    {% if request.user.is_superuser %}
+                                        <button class="create-movie btn btn-link btn-anchor" type="button" name="button">Create Movie</button>
+                                    {% endif %}
+                                </li>
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
+                                <br>
                                 {% if request.path == '/accounts/login/' or request.path == '/accounts/logout/' or request.path == '/accounts/signup/' or request.path == '/' %}
 
                                 <!-- if-statements prevent redirection to login/logout/signup page after login 
@@ -52,9 +53,12 @@
                 </div>
 
                 <div class="col-sm-10">
-                    <div class="vertical-line"></div>
-                    {% block content %}
-                    {% endblock %}  
+                    <!-- <div class="vertical-line"></div> -->
+                    <div style="padding-left: 5px">
+                        {% block content %}
+                        {% endblock %}
+                        <br>
+                    </div>
                 </div>
             </div>    
         </div>

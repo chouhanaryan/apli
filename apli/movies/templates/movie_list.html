@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}<title>apli: All Movies</title>{% endblock %}
+{% block title %}<title>apli: Movies</title>{% endblock %}
 
 {% block content %}
     <h1 style="padding-top: 15px" class="heading">Movies</h1>
+    <hr>
+   
 
-    
 
-    <div class="list">
-        <ol>
-            {% for movie in movies %}
-                <li><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></li>
-                <p></p>
-            {% empty %}
-                <p>No movies</p>
-            {% endfor %}
-        </ol>
-    </div>
+    <div class="container">
+        {%  for movie in movies  %}
+            {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {% endif %}
+              <div class="col-md-4">
+                  <div class="card">                      
+                      <div class="card-content" style="padding-bottom: 8px;">
+                            <br>
+                            <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
+                            {% if request.user.is_superuser %}
+                                <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                            {% endif %}
+                            <br>
+                      </div><!-- card content -->
+                  </div><!-- card -->
+              </div><!-- col-md-4 -->
+        {%  if forloop.counter|divisibleby:3 or forloop.last %}</div><!-- row closing --><hr>{%  endif %}
+        {%  endfor %}
+     </div><!-- container -->
+
 {% endblock %}

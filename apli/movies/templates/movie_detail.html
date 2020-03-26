@@ -3,54 +3,65 @@
 {% block title %}<title>apli: {{ movie.title }}</title>{% endblock %}
 
 {% block content %}
-    <div>
-        <h1 style="padding-top: 15px" class="heading">{{ movie.title }}</h1>
-    </div>
-    
-    <div>
-        <p></p>
-        <iframe width="640" height="360" allowfullscreen src="https://www.youtube.com/embed/{{ movie.youtube_id }}"></iframe>
-    </div>
+    <div style="padding-left: 5px">
+        <div>
+            <h1 style="padding-top: 15px" class="heading">{{ movie.title }}</h1>
+            <hr>
+        </div>
+        
+        <div style="padding-top: 1px; padding-bottom: 5px">
+            <p></p>
+            <iframe width="640" height="360" allowfullscreen src="https://www.youtube.com/embed/{{ movie.youtube_id }}"></iframe>
+        </div>
 
-    <div>
-        {% if user.is_superuser %}
+        <div style="position: relative; padding-top: 5px; width: 500px;">
+            {% if user.is_superuser %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Edit Movie Details</h3>
+                        {% load crispy_forms_tags %}
+                        <form method="post" style="margin-top: 1.3em">
+                            {{ update_form | crispy }}
+                            {% csrf_token %}
+                            <button type="submit" name="update" class="btn btn-primary btn-lg">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+        <div style="width: 500px;">
+            <h3>Comments</h3>       
+            {% for comment in movie.comments.all %}
             <div class="card">
                 <div class="card-body">
-                    <h3>Edit Movie Details</h3>
-                    {% load crispy_forms_tags %}
-                    <form method="post" style="margin-top: 1.3em">
-                        {{ update_form | crispy }}
-                        {% csrf_token %}
-                        <button type="submit" name="update" class="btn btn-primary btn-lg">Submit</button>
-                    </form>
+                    <h4 class="font-weight-bold card-title">
+                        {{ comment.user.username }}
+                    </h4>
+                    <p class="card-text">
+                        {{ comment.text | linebreaks }}
+                    </p>
                 </div>
             </div>
-        {% endif %}
-    </div>
-
-    <div>        
-        {% for comment in movie.comments.all %}
-            <div class="comments" style="padding: 10px;">
-            <p class="font-weight-bold">
-                {{ comment.user.username }}
-            </p>
-            {{ comment.text | linebreaks }}
-            </div>        
-        {% empty %}
-            <p>No comments</p>
-        {% endfor %}
-
-
-        <div class="card">
-            <div class="card-body">
-                <h3>Leave a comment</h3>
-                <h2>User: {{ request.user.username }}</h2>
-                {% load crispy_forms_tags %}
-                <form method="post" style="margin-top: 1.3em">
-                    {{ comment_form | crispy }}
-                    {% csrf_token %}
-                    <button type="submit" name="comment" class="btn btn-primary btn-lg">Submit</button>
-                </form>
+            <br>
+            {% empty %}
+                <h5>No comments</h5>
+            {% endfor %}
+        </div>
+        <br>
+        <div>
+            <h3>Leave a comment</h3>
+                <div class="card w-75">
+                    <div class="card-body">                    
+                        <h3 class="font-weight-bold">{{ request.user.username }}</h3>
+                        {% load crispy_forms_tags %}
+                        <form method="post" style="margin-top: 1.3em">
+                            {{ comment_form | crispy }}
+                            {% csrf_token %}
+                            <button type="submit" name="comment" class="btn btn-primary btn-lg">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

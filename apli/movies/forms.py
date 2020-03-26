@@ -7,6 +7,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+        labels = {'text': 'Comment'}
 
 class UpdateMovieForm(forms.ModelForm):
     class Meta:

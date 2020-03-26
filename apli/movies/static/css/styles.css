@@ -1,7 +1,7 @@
 .sidebar-nav {
     margin-top: 20px;
     padding-left: 15px;
-    list-style: none;
+    list-style: none;    
 }
 
 .sidebar-nav li
@@ -17,5 +17,13 @@ div.vertical-line
   background-color: #E5E5E5;
   height: 100%;
   position: absolute;
-  left: 5px; /* Causes the line to float to left of content */
+  left: 5px;
+  float: left;  
+}
+
+.btn-link.btn-anchor {
+  outline: none !important;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
