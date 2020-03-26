@@ -17,5 +17,5 @@ div.vertical-line
   background-color: #E5E5E5;
   height: 100%;
   position: absolute;
-  left: 4px; /* Causes the line to float to left of content */
+  left: 5px; /* Causes the line to float to left of content */
 }
