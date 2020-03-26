@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',    
-    'crispy_forms',
-    'movies'
+    'crispy_forms',  # to add django-crispy-forms
+    'movies'  # to add main 'movies' app to the project
 ]
 
 MIDDLEWARE = [
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'apli.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # to add registration templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,4 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),    
+]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # django-crispy-forms setting
+
+LOGIN_REDIRECT_URL = '/'  # Redirect user to Home page after login

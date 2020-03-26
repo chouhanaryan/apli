@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>apli: Sign Up</title>{% endblock %}
+
+{% block content %}
+    <h1 style="padding-top: 15px" class="heading">Sign Up</h1>
+
+    {% load crispy_forms_tags %}
+    <form method="post"">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+    </form>
+{% endblock %}

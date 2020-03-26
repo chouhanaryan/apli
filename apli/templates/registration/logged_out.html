@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>apli: Logout</title>{% endblock %}
+
+{% block content %}
+    <h1 style="padding-top: 15px" class="heading">Logout</h1>
+    Logged out!
+    <a href="{% url 'login'%}">Click here to login again.</a>
+{% endblock %}
