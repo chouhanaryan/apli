@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Movie
-from .forms import CommentForm, UpdateMovieForm
+from .forms import CommentForm, UpdateMovieForm, CreateMovieForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from bootstrap_modal_forms.generic import BSModalCreateView
+from django.urls import reverse_lazy
+from django.views import generic
 
 
 def movie_list(request):    
@@ -67,5 +70,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def add_movie(request):
-    pass
+class CreateMovieView(BSModalCreateView):
+    template_name = 'create_movie.html'
+    form_class = CreateMovieForm
+    success_message = 'Success: Movie was created!'
+    success_url = reverse_lazy('movie_list')

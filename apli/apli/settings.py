@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
+    'widget_tweaks',
+    'bootstrap_modal_forms',  # to add modal forms to create movie
     'crispy_forms',  # to add django-crispy-forms
     'movies'  # to add main 'movies' app to the project
 ]

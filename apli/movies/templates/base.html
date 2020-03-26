@@ -4,21 +4,32 @@
         {% block title %}<title>apli</title>{% endblock %}
         <meta charset="utf-8">
         <meta name="viewport" content="width-device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
     </head>
 
     <body>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2">
                     {% block sidebar %}
                         <ul class="sidebar-nav">
                             <li><a href="{% url 'movie_list' %}">Home</a></li>
+                            
                             {% if request.user.is_superuser %}
-                                <li><a href="{% url 'add_movie' %}">Add Movie</a></li>
+                                <button class="create-movie btn btn-primary" type="button" name="button">Create Movie</button>
                             {% endif %}
+
                             <br>
                             {% if request.user.is_authenticated %}
                                 <li>User: {{ request.user.username }}</li>
@@ -47,5 +58,12 @@
                 </div>
             </div>    
         </div>
+
+        <script type="text/javascript">
+            $(function () {              
+              $(".create-movie").modalForm({formURL: "{% url 'create_movie' %}"});                    
+            });
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </body>
 </html>  
