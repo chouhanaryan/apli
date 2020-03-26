@@ -1,0 +1,21 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding-left: 15px;
+    list-style: none;
+}
+
+.sidebar-nav li
+{
+    font-size: 17px;
+    padding-bottom: 1px;
+    text-align: right;
+}
+
+div.vertical-line
+{
+  width: 1px;
+  background-color: #E5E5E5;
+  height: 100%;
+  position: absolute;
+  left: 4px; /* Causes the line to float to left of content */
+}

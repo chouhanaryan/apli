@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>apli: All Movies</title>{% endblock %}
+
+{% block content %}
+    <h1 class="heading">Movies</h1>
+    <div class="list">
+        <ol>
+            {% for movie in movies %}
+                <li><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></li>
+                <p></p>
+            {% empty %}
+                <p>No movies</p>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}

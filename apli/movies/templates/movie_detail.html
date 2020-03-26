@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>apli: {{ movie.title }}</title>{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="heading">{{ movie.title }}</h1>
+
+        {% if user.is_superuser %}
+            <h2>EDIT TITLE</h2>
+        {% endif %}
+
+    </div>
+    
+    <div>
+        <p></p>
+        <iframe width="640" height="360" allowfullscreen src="https://www.youtube.com/embed/{{ movie.youtube_id }}"></iframe>
+
+        {% if user.is_superuser %}
+            <h2>EDIT YOUTUBE_ID</h2>
+        {% endif %}
+    </div>
+
+    <div>        
+        {% for comment in movie.comments.all %}            
+            <div class="comments" style="padding: 10px;">
+            <p class="font-weight-bold">
+                {{ comment.user.username }}                
+            </p>
+            {{ comment.text | linebreaks }}
+            </div>        
+        {% empty %}
+            <p>No comments</p>
+        {% endfor %}
+
+        {% load crispy_forms_tags %}
+
+        <div class="card-body">            
+            <h3>Leave a comment</h3>
+            <h2>@{{ request.user.username }}</h2>
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form | crispy }}
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>            
+          </div>
+    </div>
+{% endblock %}
