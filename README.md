@@ -14,18 +14,18 @@ The website is live at [https://moviesdjango.pythonanywhere.com/](https://movies
 ## Build Instructions
 
 ```bash
-  git clone https://github.com/chouhanaryan/apli.git
-  cd .\apli\
-  pip3 install -r requirements.txt
-  cd .\apli\
-  python3 manage.py makemigrations
-  python3 manage.py migrate
-  python3 manage.py runserver
+git clone https://github.com/chouhanaryan/apli.git
+cd .\apli\
+pip3 install -r requirements.txt
+cd .\apli\
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver
 ```
 #### Superuser creation
 
 After migrations, run the ```createsuperuser``` command and enter the required details
 
 ```bash
-  python3 manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
