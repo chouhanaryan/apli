@@ -5,28 +5,31 @@
 {% block content %}
     <h1 style="padding-top: 15px" class="heading">Movies</h1>
     <hr>
-   
-
 
     <div class="container">
         {%  for movie in movies  %}
-            {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {% endif %}
-              <div class="col-md-4">
-                  <div class="card">                      
-                      <div class="card-content" style="padding-bottom: 8px;">
-                            <br>
-                            <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
-                            {% if request.user.is_superuser %}
-                                <form action="{% url 'delete_movie' movie.pk %}">
-                                    <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
-                                </form>
-                            {% endif %}
-                            <br>
-                      </div><!-- card content -->
-                  </div><!-- card -->
-              </div><!-- col-md-4 -->
-        {%  if forloop.counter|divisibleby:3 or forloop.last %}</div><!-- row closing --><hr>{%  endif %}
+            {% if forloop.counter0|divisibleby:3 %} 
+                <div class="row text-center"> 
+            {% endif %}
+                <div class="col-md-4">
+                    <div class="card">                      
+                        <div class="card-content" style="padding-bottom: 8px;">
+                                <br>
+                                <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
+                                {% if request.user.is_superuser %}
+                                    <form action="{% url 'delete_movie' movie.pk %}">
+                                        <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
+                                    </form>
+                                {% endif %}
+                                <br>
+                        </div>
+                    </div>
+                </div>
+            {%  if forloop.counter|divisibleby:3 or forloop.last %}
+                </div>
+                <hr>
+            {%  endif %}
         {%  endfor %}
-     </div><!-- container -->
+    </div>
 
 {% endblock %}

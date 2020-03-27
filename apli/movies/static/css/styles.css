@@ -11,16 +11,6 @@
     text-align: right;
 }
 
-div.vertical-line
-{
-  width: 1px;
-  background-color: #E5E5E5;
-  height: 100%;
-  position: absolute;
-  left: 5px;
-  float: left;  
-}
-
 .btn-link.btn-anchor {
   outline: none !important;
   padding: 0;

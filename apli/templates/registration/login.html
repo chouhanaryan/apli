@@ -4,7 +4,8 @@
 
 {% block content %}
     <h1 style="padding-top: 15px" class="heading">Login</h1>
-
+    <hr>
+    
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
@@ -12,12 +13,13 @@
     {% if next %}
         <p>Please login to see this page.</p>    
     {% endif %}
-
-    {% load crispy_forms_tags %}
-    <form method="post" action="{% url 'login' %}">
-        {{ form | crispy }}
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary btn-lg" value="login"/>Submit</button>        
-        <input type="hidden" name="next" value="{{ next }}" />
-    </form>  
+    <div style="width: 450px;">
+        {% load crispy_forms_tags %}
+        <form method="post" action="{% url 'login' %}">
+            {{ form | crispy }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg" value="login"/>Submit</button>        
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>  
 {% endblock %}

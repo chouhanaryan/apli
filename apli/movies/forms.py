@@ -9,14 +9,16 @@ class CommentForm(forms.ModelForm):
         fields = ('text',)
         labels = {'text': 'Comment'}
 
+
 class UpdateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        fields = ('title', 'youtube_id')
-        labels = {'youtube_id': 'YouTube ID'}
+        fields = ('title', 'youtube_link')
+        labels = {'youtube_link': 'YouTube Link'}
+
 
 class CreateMovieForm(BSModalForm):
     class Meta:
         model = Movie
-        fields = ('title', 'youtube_id')
-        labels = {'youtube_id': 'YouTube ID'}
+        fields = ('title', 'youtube_link')
+        labels = {'youtube_link': 'YouTube Link'}
