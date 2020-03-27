@@ -3,6 +3,12 @@
 
 ## Demo
 
+### Live demo
+
+The website is live at [https://moviesdjango.pythonanywhere.com/](https://moviesdjango.pythonanywhere.com/).
+
+### Video demo
+
 [![Alt text](https://img.youtube.com/vi/8R-Uch6WbaQ/0.jpg)](https://www.youtube.com/watch?v=8R-Uch6WbaQ)
 
 ## Build Instructions
