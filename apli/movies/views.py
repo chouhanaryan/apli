@@ -24,22 +24,6 @@ def movie_detail(request, pk):
     
     movie = Movie.objects.get(pk=pk)
 
-    ''' Parsing YouTube link to get ID to embed video '''
-    youtube_link = movie.youtube_link
-    p_link = urlparse(youtube_link)
-    if p_link.netloc == 'youtu.be':
-        youtube_id = p_link.path[1:]
-    elif p_link.netloc in ('www.youtube.com', 'youtube.com'):
-        if p_link.path == '/watch':
-            id_index = p_link.query.index('v=')
-            youtube_id = p_link.query[id_index+2:id_index+13]
-        elif p_link.path[:7] == '/embed/':
-            youtube_id = p_link.path.split('/')[2]
-        elif p_link.path[:3] == '/v/':
-            youtube_id = p_link.path.split('/')[2]
-    else:
-        youtube_id = ''
-
     ''' Create new comments - form data '''
     new_comment = None    
     if request.method == 'POST' and 'comment' in request.POST:
@@ -56,12 +40,30 @@ def movie_detail(request, pk):
     
     ''' Update movie form (only for superuser) '''
     if request.method == 'POST' and 'update' in request.POST and request.user.is_superuser:
-        update_form = UpdateMovieForm(request.POST, instance=movie, initial={'title': str(movie.title), 'youtube_link': str(movie.youtube_link)})
+        update_form = UpdateMovieForm(request.POST, instance=movie)
         if update_form.is_valid():
             update_form.save()
             update_form = UpdateMovieForm()
+
     else:
         update_form = UpdateMovieForm()
+
+
+    ''' Parsing YouTube link to get ID to embed video '''
+    youtube_link = movie.youtube_link
+    p_link = urlparse(youtube_link)
+    if p_link.netloc == 'youtu.be':
+        youtube_id = p_link.path[1:]
+    elif p_link.netloc in ('www.youtube.com', 'youtube.com'):
+        if p_link.path == '/watch':
+            id_index = p_link.query.index('v=')
+            youtube_id = p_link.query[id_index+2:id_index+13]
+        elif p_link.path[:7] == '/embed/':
+            youtube_id = p_link.path.split('/')[2]
+        elif p_link.path[:3] == '/v/':
+            youtube_id = p_link.path.split('/')[2]
+    else:
+        youtube_id = ''
 
 
     return render(
