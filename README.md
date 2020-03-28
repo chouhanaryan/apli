@@ -1,4 +1,4 @@
-<h1 align="center">apli.ai: Movie Website</h1>
+<h1 align="center">Moo: Movie Website</h1>
 <h4 align='center'>A movie viewing app with comments and admin/user functionality</h4>
 
 ## Demo
@@ -14,10 +14,10 @@ The website is live at [https://moviesdjango.pythonanywhere.com/](https://movies
 ## Build Instructions
 
 ```bash
-git clone https://github.com/chouhanaryan/apli.git
-cd .\apli\
+git clone https://github.com/chouhanaryan/moo.git
+cd .\moo\
 pip3 install -r requirements.txt
-cd .\apli\
+cd .\moo\
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py runserver
