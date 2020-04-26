@@ -3,16 +3,16 @@
 {% block title %}<title>Moo: Logout</title>{% endblock %}
 
 {% block content %}
-    <h1 style="padding-top: 15px" class="heading">Logout</h1>
-    <hr>
+<h1 style="padding-top: 15px" class="heading">Logout</h1>
+<hr>
 
-    <p>Logged out!</p>
-    <p>You will be redirected to the Home page in 5 seconds</p>
+<p>Logged out!</p>
+<p>You will be redirected to the Home page in 5 seconds</p>
 
-    <script type="text/javascript">
-        setTimeout(function() {
-            window.location.href = "/";
-        }, 5000);
-    </script>
+<script type="text/javascript">
+    setTimeout(function () {
+        window.location.href = "/";
+    }, 5000);
+</script>
 
 {% endblock %}

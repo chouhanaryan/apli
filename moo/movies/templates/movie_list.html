@@ -3,33 +3,36 @@
 {% block title %}<title>Moo: Movies</title>{% endblock %}
 
 {% block content %}
-    <h1 style="padding-top: 15px" class="heading">Movies</h1>
-    <hr>
+<h1 style="padding-top: 15px" class="heading">Movies</h1>
+<hr>
 
-    <div class="container">
-        {%  for movie in movies  %}
-            {% if forloop.counter0|divisibleby:3 %} 
-                <div class="row text-center"> 
-            {% endif %}
-                <div class="col-md-4">
-                    <div class="card">                      
-                        <div class="card-content" style="padding-bottom: 8px;">
-                                <br>
-                                <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
-                                {% if request.user.is_superuser %}
-                                    <form action="{% url 'delete_movie' movie.pk %}">
-                                        <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;">
-                                    </form>
-                                {% endif %}
-                                <br>
-                        </div>
-                    </div>
+<div class="container">
+    {%  for movie in movies  %}
+    {% if forloop.counter0|divisibleby:3 %}
+    <div class="row text-center">
+        {% endif %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-content" style="padding-bottom: 8px;">
+                    <br>
+                    <h5 class="card-title"><a href="{% url 'movie_detail' movie.pk %}">{{ movie.title }}</a></h5>
+                    <span class="text-success">{{ movie.likes }}</span> | <span
+                        class="text-danger">{{ movie.dislikes }}</span>
+                    {% if request.user.is_superuser %}
+                    <form action="{% url 'movie_delete' movie.pk %}">
+                        <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0"
+                            style="font-size: 0.8em;">
+                    </form>
+                    {% endif %}
+                    <br>
                 </div>
-            {%  if forloop.counter|divisibleby:3 or forloop.last %}
-                </div>
-                <hr>
-            {%  endif %}
-        {%  endfor %}
+            </div>
+        </div>
+        {%  if forloop.counter|divisibleby:3 or forloop.last %}
     </div>
+    <hr>
+    {%  endif %}
+    {%  endfor %}
+</div>
 
 {% endblock %}

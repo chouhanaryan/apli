@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}<title>Moo: Confirm Delete</title>{% endblock %}
+{% block title %}<title>Moo: Confirm Movie Delete</title>{% endblock %}
 
 {% block content %}
-    <h1 style="padding-top: 15px" class="heading">Confirm Delete</h1>
-    <hr>
-    <p>Are you sure you want to delete the movie?</p>
-    <h2 class="font-weight-bold">{{ movie.title }}</h2>
-    <br>
-    <form action="" method="POST">
-        {% csrf_token %}        
-        <input type="submit" class="submit-btn btn btn-primary" value="Confirm">
-    </form>
+<h1 style="padding-top: 15px" class="heading">Confirm Movie Delete</h1>
+<hr>
+<p>Are you sure you want to delete the movie?</p>
+<h2 class="font-weight-bold">{{ movie.title }}</h2>
+<br>
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" class="submit-btn btn btn-primary" value="Confirm">
+</form>
 
 {% endblock %}

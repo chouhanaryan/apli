@@ -3,65 +3,112 @@
 {% block title %}<title>Moo: {{ movie.title }}</title>{% endblock %}
 
 {% block content %}
-    <div style="padding-left: 5px">
-        <div>
-            <h1 style="padding-top: 15px" class="heading">{{ movie.title }}</h1>
-            <hr>
-        </div>
-        
-        <div style="padding-top: 1px; padding-bottom: 5px">
-            <iframe width="800" height="450" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/{{ youtube_id }}"></iframe>
+<div style="padding-left: 5px">
+    <div>
+        <h1 style="padding-top: 15px" class="heading">{{ movie.title }}</h1>
+        <hr>
+    </div>
+
+    <div style="padding-top: 1px; padding-bottom: 5px">
+        <iframe width="800" height="450" frameborder="0" allowfullscreen
+            src="https://www.youtube.com/embed/{{ youtube_id }}"></iframe>
+    </div>
+
+    <div style="position: relative; padding-top: 5px; width: 500px;">
+
+        <div class="card">
+            <div class="card-body">
+                {% if pref_value == "LIKED" %}
+                <span class="font-weight-bold text-success"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('likebutton').submit()">LIKED </a></span>{{ movie.likes }} |
+                <span class="text-danger"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('dislikebutton').submit()">DISLIKE </a></span>
+                {{ movie.dislikes }}
+                {% elif pref_value == "DISLIKED" %}
+                <span class="text-success"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('likebutton').submit()">LIKE </a></span>{{ movie.likes }} |
+                <span class="font-weight-bold text-danger"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('dislikebutton').submit()">DISLIKED </a></span>
+                {{ movie.dislikes }}
+                {% else %}
+                <span class="text-success"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('likebutton').submit()">LIKE </a></span>
+                {{ movie.likes }} | <span class="text-danger"><a style="color: inherit;" href="#"
+                        onClick="document.getElementById('dislikebutton').submit()">DISLIKE </a></span>
+                {{ movie.dislikes }}
+                {% endif %}
+            </div>
         </div>
 
-        <div style="position: relative; padding-top: 5px; width: 500px;">
-            {% if user.is_superuser %}
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Edit Movie Details</h3>
-                        {% load crispy_forms_tags %}
-                        <form method="post" style="margin-top: 1.3em" action=".">
-                            {{ update_form | crispy }}
-                            {% csrf_token %}
-                            <button type="submit" name="update" class="btn btn-primary btn-lg">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        <hr>
-        <div style="width: 500px;">
-            <h3>Comments</h3>       
-            {% for comment in movie.comments.all %}
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="font-weight-bold card-title">
-                        {{ comment.user.username }}
-                    </h4>
-                    <p class="card-text">
-                        {{ comment.text | linebreaks }}
-                    </p>
-                </div>
+
+        <form id="likebutton" method="POST" action="/{{ movie.id }}/preference/1/">
+            {% csrf_token %}
+            <input type="hidden">
+        </form>
+
+        <form id="dislikebutton" method="POST" action="/{{ movie.id }}/preference/2/">
+            {% csrf_token %}
+            <input type="hidden">
+        </form>
+
+        <br>
+
+        {% if user.is_superuser %}
+        <div class="card">
+            <div class="card-body">
+                <h3>Edit Movie Details</h3>
+                {% load crispy_forms_tags %}
+                <form method="post" style="margin-top: 1.3em" action=".">
+                    {{ update_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" name="update" class="btn btn-primary btn-lg">Submit</button>
+                </form>
             </div>
-            <br>
-            {% empty %}
-                <h5>No comments</h5>
-            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div style="width: 500px;">
+        <h3>Comments</h3>
+        {% for comment in movie.comments.all %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold card-title">
+                    {{ comment.user.username }}
+                </h4>
+                <p class="card-text">
+                    {{ comment.text | linebreaks }}
+                </p>
+                {% if request.user.is_superuser %}
+                <form method="POST" action="{% url 'comment_delete' movie.pk comment.pk %}">
+                    {% csrf_token %}
+                    <input type="submit" value="🗑" class="btn btn-sm btn-outline-danger py-0"
+                        style="font-size: 0.8em;">
+                </form>
+                {% endif %}
+            </div>
         </div>
         <br>
-        <div>
-            <h3>Leave a comment</h3>
-                <div class="card w-75">
-                    <div class="card-body">                    
-                        <h3 class="font-weight-bold">{{ request.user.username }}</h3>
-                        {% load crispy_forms_tags %}
-                        <form method="post" style="margin-top: 1.3em">
-                            {{ comment_form | crispy }}
-                            {% csrf_token %}
-                            <button type="submit" name="comment" class="btn btn-primary btn-lg">Submit</button>
-                        </form>
-                    </div>
-                </div>
+        {% empty %}
+        <h5>No comments</h5>
+        {% endfor %}
+    </div>
+    <br>
+    <div>
+        <h3>Leave a comment</h3>
+        <div class="card w-75">
+            <div class="card-body">
+                <h3 class="font-weight-bold">{{ request.user.username }}</h3>
+                {% load crispy_forms_tags %}
+                <form method="post" style="margin-top: 1.3em">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" name="comment" class="btn btn-primary btn-lg">Submit</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+</div>
+<br>
 {% endblock %}
