@@ -1,5 +1,5 @@
 <h1 align="center">Moo: Movie Website</h1>
-<h4 align='center'>A movie viewing app with comments and admin/user functionality</h4>
+<h4 align='center'>A movie viewing website with like/dislike, comments and admin/user functionality</h4>
 
 ## Demo
 
@@ -7,7 +7,7 @@
 
 The website is live at [https://moviesdjango.pythonanywhere.com/](https://moviesdjango.pythonanywhere.com/).
 
-### Video demo
+### Video demo (outdated)
 
 [![Alt text](https://img.youtube.com/vi/8R-Uch6WbaQ/0.jpg)](https://www.youtube.com/watch?v=8R-Uch6WbaQ)
 
