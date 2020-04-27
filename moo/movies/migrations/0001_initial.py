@@ -15,35 +15,85 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Movie',
+            name="Movie",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('youtube_link', models.CharField(max_length=150)),
-                ('likes', models.IntegerField(default=0)),
-                ('dislikes', models.IntegerField(default=0)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("youtube_link", models.CharField(max_length=150)),
+                ("likes", models.IntegerField(default=0)),
+                ("dislikes", models.IntegerField(default=0)),
             ],
         ),
         migrations.CreateModel(
-            name='Comment',
+            name="Comment",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='movies.Movie')),
-                ('user', models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
+                (
+                    "movie",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="comments",
+                        to="movies.Movie",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Preference',
+            name="Preference",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('value', models.IntegerField()),
-                ('date', models.DateTimeField(auto_now=True)),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='movie', to='movies.Movie')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("value", models.IntegerField()),
+                ("date", models.DateTimeField(auto_now=True)),
+                (
+                    "movie",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="movie",
+                        to="movies.Movie",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
-            options={
-                'unique_together': {('user', 'movie', 'value')},
-            },
+            options={"unique_together": {("user", "movie", "value")},},
         ),
     ]
