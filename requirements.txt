@@ -1,5 +1,5 @@
 ﻿asgiref==3.2.7
-Django==3.1.12
+Django==3.1.13
 django-bootstrap-modal-forms==1.5.0
 django-crispy-forms==1.9.0
 django-widget-tweaks==1.4.8
